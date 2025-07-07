@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Paisa - Complete Your KYC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .logo {
+            height: 50px;
+        }
+
+        .kyc-form-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-title {
+            font-size: 22px;
+            margin-bottom: 25px;
+            color: #00a651;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .form-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #00a651;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background-color: #f9f9f9;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="date"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #00a651;
+            outline: none;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(0, 166, 81, 0.1);
+        }
+
+        .file-upload {
+            border: 2px dashed #ddd;
+            border-radius: 5px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background-color: #f9f9f9;
+        }
+
+        .file-upload:hover {
+            border-color: #00a651;
+            background-color: rgba(0, 166, 81, 0.05);
+        }
+
+        .file-upload i {
+            font-size: 40px;
+            color: #00a651;
+            margin-bottom: 10px;
+        }
+
+        .file-upload p {
+            margin-bottom: 5px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .file-upload small {
+            color: #999;
+        }
+
+        #preview-container {
+            margin-top: 15px;
+            display: none;
+        }
+
+        .preview-image {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+
+        .btn {
+            background-color: #00a651;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #008f45;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            margin: 25px 0;
+        }
+
+        .terms-checkbox input {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+
+        .terms-text {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .terms-text a {
+            color: #00a651;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-message i {
+            font-size: 60px;
+            color: #00a651;
+            margin-bottom: 20px;
+        }
+
+        .success-message h2 {
+            color: #00a651;
+            margin-bottom: 15px;
+        }
+
+        .success-message p {
+            color: #666;
+            margin-bottom: 25px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .kyc-form-container {
+                padding: 20px;
+            }
+            
+            .form-title {
+                font-size: 20px;
+            }
+            
+            .file-upload {
+                padding: 20px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <img src="https://www.easypaisa.com.pk/wp-content/themes/easypaisa/images/easypaisa-logo.svg" alt="Easy Paisa" class="logo">
+    </header>
+
+    <div class="container">
+        <div class="kyc-form-container">
+            <h2 class="form-title">Complete Your KYC Verification</h2>
+            <form id="kyc-form">
+                <!-- Personal Information -->
+                <div class="form-group">
+                    <label for="full-name">Full Name</label>
+                    <input type="text" id="full-name" name="full-name" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cnic">CNIC Number</label>
+                    <input type="text" id="cnic" name="cnic" placeholder="XXXXX-XXXXXXX-X" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mobile-number">Mobile Number</label>
+                    <input type="tel" id="mobile-number" name="mobile-number" value="+92" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address" name="address" rows="3" placeholder="Enter your complete address" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="occupation">Occupation</label>
+                    <select id="occupation" name="occupation" required>
+                        <option value="">Select Occupation</option>
+                        <option value="student">Student</option>
+                        <option value="employed">Employed</option>
+                        <option value="business">Business</option>
+                        <option value="self-employed">Self Employed</option>
+                        <option value="unemployed">Unemployed</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Document Uploads -->
+                <div class="form-group">
+                    <label>CNIC Front Photo</label>
+                    <div class="file-upload" id="cnic-front-upload">
+                        <i class="fas fa-id-card"></i>
+                        <p>Upload CNIC Front Side</p>
+                        <small>JPG, PNG or PDF (Max 5MB)</small>
+                        <input type="file" id="cnic-front" name="cnic-front" accept="image/*,.pdf" style="display: none;">
+                    </div>
+                    <div id="preview-cnic-front" style="display: none; text-align: center;">
+                        <img id="preview-cnic-front-image" class="preview-image" src="#" alt="CNIC Front Preview">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>CNIC Back Photo</label>
+                    <div class="file-upload" id="cnic-back-upload">
+                        <i class="fas fa-id-card"></i>
+                        <p>Upload CNIC Back Side</p>
+                        <small>JPG, PNG or PDF (Max 5MB)</small>
+                        <input type="file" id="cnic-back" name="cnic-back" accept="image/*,.pdf" style="display: none;">
+                    </div>
+                    <div id="preview-cnic-back" style="display: none; text-align: center;">
+                        <img id="preview-cnic-back-image" class="preview-image" src="#" alt="CNIC Back Preview">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Selfie with CNIC</label>
+                    <div class="file-upload" id="selfie-upload">
+                        <i class="fas fa-user-circle"></i>
+                        <p>Upload Selfie with CNIC</p>
+                        <small>JPG or PNG (Max 5MB)</small>
+                        <input type="file" id="selfie" name="selfie" accept="image/*" style="display: none;">
+                    </div>
+                    <div id="preview-selfie" style="display: none; text-align: center;">
+                        <img id="preview-selfie-image" class="preview-image" src="#" alt="Selfie Preview">
+                    </div>
+                </div>
+
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <div class="terms-text">
+                        I hereby declare that all the information provided is correct and I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a> of Easy Paisa.
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-block">Submit KYC</button>
+            </form>
+
+            <!-- Success Message (hidden initially) -->
+            <div id="success-message" style="display: none;">
+                <div class="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    <h2>KYC Submitted Successfully!</h2>
+                    <p>Thank you for completing your KYC verification with Easy Paisa. Your information is under review and you will receive a confirmation SMS within 24 hours. You can now enjoy all features of your Easy Paisa account.</p>
+                    <button class="btn" id="done-btn">Continue to Easy Paisa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form elements
+            const kycForm = document.getElementById('kyc-form');
+            const successMessage = document.getElementById('success-message');
+            const doneBtn = document.getElementById('done-btn');
+
+            // File upload elements
+            const cnicFrontUpload = document.getElementById('cnic-front-upload');
+            const cnicBackUpload = document.getElementById('cnic-back-upload');
+            const selfieUpload = document.getElementById('selfie-upload');
+            const cnicFrontInput = document.getElementById('cnic-front');
+            const cnicBackInput = document.getElementById('cnic-back');
+            const selfieInput = document.getElementById('selfie');
+
+            // File upload click handlers
+            cnicFrontUpload.addEventListener('click', function() {
+                cnicFrontInput.click();
+            });
+
+            cnicBackUpload.addEventListener('click', function() {
+                cnicBackInput.click();
+            });
+
+            selfieUpload.addEventListener('click', function() {
+                selfieInput.click();
+            });
+
+            // File input change handlers for preview
+            cnicFrontInput.addEventListener('change', function(e) {
+                handleFileUpload(e, 'preview-cnic-front', 'preview-cnic-front-image');
+            });
+
+            cnicBackInput.addEventListener('change', function(e) {
+                handleFileUpload(e, 'preview-cnic-back', 'preview-cnic-back-image');
+            });
+
+            selfieInput.addEventListener('change', function(e) {
+                handleFileUpload(e, 'preview-selfie', 'preview-selfie-image');
+            });
+
+            // Function to handle file upload and preview
+            function handleFileUpload(event, previewContainerId, previewImageId) {
+                const file = event.target.files[0];
+                if (file) {
+                    const previewContainer = document.getElementById(previewContainerId);
+                    const previewImage = document.getElementById(previewImageId);
+                    
+                    if (file.type.match('image.*')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            previewImage.src = e.target.result;
+                            previewContainer.style.display = 'block';
+                        };
+                        reader.readAsDataURL(file);
+                    } else if (file.type === 'application/pdf') {
+                        previewImage.src = 'https://cdn-icons-png.flaticon.com/512/337/337946.png'; // PDF icon
+                        previewContainer.style.display = 'block';
+                    }
+                }
+            }
+
+            // Form submission
+            kycForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate form
+                if (kycForm.checkValidity()) {
+                    // In a real application, you would submit the form data to the server here
+                    // For this demo, we'll just show the success message
+                    kycForm.style.display = 'none';
+                    successMessage.style.display = 'block';
+                }
+            });
+
+            // Done button click handler
+            doneBtn.addEventListener('click', function() {
+                alert('In a real application, this would redirect to the Easy Paisa dashboard.');
+                // window.location.href = 'https://easypaisa.com.pk';
+            });
+
+            // Initialize date picker max date (18 years ago)
+            const dobInput = document.getElementById('dob');
+            const today = new Date();
+            const minDate = new Date();
+            minDate.setFullYear(today.getFullYear() - 100); // 100 years ago
+            const maxDate = new Date();
+            maxDate.setFullYear(today.getFullYear() - 18); // 18 years ago
+            
+            dobInput.min = minDate.toISOString().split('T')[0];
+            dobInput.max = maxDate.toISOString().split('T')[0];
+
+            // CNIC input formatting
+            const cnicInput = document.getElementById('cnic');
+            cnicInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 5) {
+                    value = value.substring(0, 5) + '-' + value.substring(5);
+                }
+                if (value.length > 13) {
+                    value = value.substring(0, 13) + '-' + value.substring(13);
+                }
+                if (value.length > 15) {
+                    value = value.substring(0, 15);
+                }
+                e.target.value = value;
+            });
+
+            // Mobile number validation
+            const mobileInput = document.getElementById('mobile-number');
+            mobileInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (!value.startsWith('92')) {
+                    value = '92' + value;
+                }
+                if (value.length > 12) {
+                    value = value.substring(0, 12);
+                }
+                e.target.value = '+' + value;
+            });
+        });
+    </script>
+</body>
+</html>
